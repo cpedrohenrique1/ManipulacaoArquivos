@@ -10,17 +10,17 @@ int main(){
     
     if (arquivo == nullptr) {
         cout << "Arquivo não encontrado" << endl;
-        arquivo = fopen ("test.txt", "w");
-        fprintf (arquivo, "Ola");
-        fclose (arquivo);
+        arquivo = fopen ("test.txt", "w"); // Cria um arquivo
+        fprintf (arquivo, "Ola"); // escreve dentro do arquivo
+        fclose (arquivo); // fecha o arquivo
         cout << "Arquivo criado\n";
-        arquivo = fopen ("test.txt", "r");
+        arquivo = fopen ("test.txt", "r"); // abre o arquivo
     }
 
-    fscanf (arquivo, "%s", &texto);
-    printf ("%s\n", texto);
+    fscanf (arquivo, "%s", &texto); // le o arquivo
+    printf ("%s\n", texto); // escreve o que tem no arquivo
     
-    fclose (arquivo);
+    fclose (arquivo); // fecha o arquivo
 
     return 0;
 }
