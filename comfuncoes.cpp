@@ -12,10 +12,11 @@ FILE *abrirArquivo(char modo){
             break;
         case 'r':
             arquivo = fopen("test.txt", "r"); // abre arquivo para leitura
-            cout << "Arquivo aberto\n";
+            cout << "Arquivo lido\n";
             break;
         case 'a':
-            arquivo = fopen("test.txt", "a"); // edita o arquivo existente no final
+            arquivo = fopen("test.txt", "a"); // edita o arquivo existente
+            cout << "Arquivo aberto\n";
             break;
         default:
             throw string("Modo invalido, tente novamente\n");
@@ -37,6 +38,7 @@ void editarArquivo( char entrada[30]){ //edita o arquivo
     FILE *arquivo;
     arquivo = abrirArquivo('a');
     fprintf(arquivo, "%s\n", entrada);
+    fecharArquivo(arquivo);
 }
 
 void escreverArquivo(){ //escreve algo no arquivo
@@ -46,38 +48,43 @@ void escreverArquivo(){ //escreve algo no arquivo
     while (fscanf(arquivo, "%s", texto) != EOF){
         cout << texto << endl;
     }
+    fecharArquivo(arquivo);
 }
  
 int main(){
     //      Abertura de Arquivos     //
     FILE *arquivo;
-    char modo;
+    int modo;
     char entrada[20];
-    try{
-        cout << "Insira o modo de arquivo: ";
-        cin >> modo;
-        arquivo = abrirArquivo(modo);
-        fecharArquivo(arquivo);
-        switch (modo){
-            case 'w':
-                cout << "Insira o texto: ";
-                cin >> entrada;
-                editarArquivo(entrada);
-                break;
-            case 'r':
-                escreverArquivo();
-                break;
-            case 'a':
-                cout << "Insira o texto: ";
-                cin >> entrada;
-                editarArquivo(entrada);
-                break;
+    int flag;
+    do{
+            try{
+            cout << "1 - Criar arquivo" << endl;
+            cout << "2 - Ler arquivo" << endl;
+            cout << "3 - Editar arquivo" << endl;
+            cout << "Insira o modo de arquivo: ";
+            cin >> modo;
+            switch (modo){
+                case 1:
+                    arquivo = abrirArquivo('w');
+                    fecharArquivo(arquivo);
+                    break;
+                case 2:
+                    escreverArquivo();
+                    break;
+                case 3:
+                    cout << "Insira o texto: ";
+                    cin >> entrada;
+                    editarArquivo(entrada);
+                    break;
+            }
         }
-    }
-    catch(string error){
-        cout << "Erro " << error << endl;
-    }
-    fecharArquivo(arquivo);
+        catch(string error){
+            cout << "Erro " << error << endl;
+        }
+        cout << "insira 0 para encerrar\n";
+        cin >> flag;
+    }while (flag != 0);
 
     return 0;
 }
