@@ -2,6 +2,7 @@
 using namespace std;
 #include <stdio.h>
 
+// Função abre o arquivo no modo digitado
 FILE *abrirArquivo(char modo){
     FILE *arquivo;
     switch (modo){
@@ -10,11 +11,11 @@ FILE *abrirArquivo(char modo){
             cout << "Arquivo criado\n";
             break;
         case 'r':
-            arquivo = fopen("test.txt", "r");
+            arquivo = fopen("test.txt", "r"); // abre arquivo para leitura
             cout << "Arquivo aberto\n";
             break;
         case 'a':
-            arquivo = fopen("test.txt", "a");
+            arquivo = fopen("test.txt", "a"); // edita o arquivo existente no final
             break;
         default:
             throw string("Modo invalido, tente novamente\n");
@@ -27,18 +28,18 @@ FILE *abrirArquivo(char modo){
     return arquivo;
 }
 
-void fecharArquivo(FILE *arquivo){
+void fecharArquivo(FILE *arquivo){ //fecha o arquivo digitado
     fclose (arquivo);
     cout << "Arquivo fechado\n";
 }
 
-void editarArquivo( char entrada[30]){
+void editarArquivo( char entrada[30]){ //edita o arquivo
     FILE *arquivo;
     arquivo = abrirArquivo('a');
     fprintf(arquivo, "%s\n", entrada);
 }
 
-void escreverArquivo(){
+void escreverArquivo(){ //escreve algo no arquivo
     FILE *arquivo;
     char texto[20];
     arquivo = abrirArquivo('r');
