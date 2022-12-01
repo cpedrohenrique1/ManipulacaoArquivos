@@ -6,7 +6,7 @@ FILE *abrirArquivo(char modo){
     FILE *arquivo;
     switch (modo){
         case 'w':
-            arquivo = fopen("test.txt", "w");
+            arquivo = fopen("test.txt", "w"); // cria arquivo para escrita
             cout << "Arquivo criado\n";
             break;
         case 'r':
@@ -29,6 +29,7 @@ FILE *abrirArquivo(char modo){
 
 void fecharArquivo(FILE *arquivo){
     fclose (arquivo);
+    cout << "Arquivo fechado\n";
 }
 
 void editarArquivo( char entrada[30]){
@@ -36,16 +37,26 @@ void editarArquivo( char entrada[30]){
     arquivo = abrirArquivo('a');
     fprintf(arquivo, "%s\n", entrada);
 }
+
+void escreverArquivo(){
+    FILE *arquivo;
+    char texto[20];
+    arquivo = abrirArquivo('r');
+    while (fscanf(arquivo, "%s", texto) != EOF){
+        cout << texto << endl;
+    }
+}
  
 int main(){
     //      Abertura de Arquivos     //
     FILE *arquivo;
     char modo;
-    char entrada[30];
+    char entrada[20];
     try{
         cout << "Insira o modo de arquivo: ";
         cin >> modo;
         arquivo = abrirArquivo(modo);
+        fecharArquivo(arquivo);
         switch (modo){
             case 'w':
                 cout << "Insira o texto: ";
@@ -53,9 +64,7 @@ int main(){
                 editarArquivo(entrada);
                 break;
             case 'r':
-                while (fscanf(arquivo, "%s", entrada) != EOF){
-                    cout << entrada << endl;
-                }
+                escreverArquivo();
                 break;
             case 'a':
                 cout << "Insira o texto: ";
@@ -67,6 +76,7 @@ int main(){
     catch(string error){
         cout << "Erro " << error << endl;
     }
+    fecharArquivo(arquivo);
 
     return 0;
 }
