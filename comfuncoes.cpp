@@ -1,6 +1,8 @@
 #include <iostream>
-using namespace std;
-#include <stdio.h>
+using std::cout;
+using std::string;
+using std::endl;
+using std::cin;
 
 // Função abre o arquivo no modo digitado
 FILE *abrirArquivo(char modo)
